@@ -1,5 +1,6 @@
 package Tiles.Units;
 
+import Tiles.Position;
 import Tiles.Units.Bars.Bar;
 
 public class Monster extends Unit{
@@ -7,7 +8,7 @@ public class Monster extends Unit{
 
     public Monster(String name, int attackPoints, int defensePoints, Bar health, int x, int y, char symbol)
     {
-        super(name,attackPoints,defensePoints,health,x,y,symbol);
+        super(name,attackPoints,defensePoints,health,new Position(x,y),symbol);
         this.vision = vision;
     }
 
@@ -20,7 +21,7 @@ public class Monster extends Unit{
     }
 
     @Override
-    public String toString() {
-        return super.toString() + " vision = " + vision;
+    public String description() {
+        return super.description() + " vision = " + vision;
     }
 }

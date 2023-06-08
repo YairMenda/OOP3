@@ -1,5 +1,6 @@
 package Tiles.Units.Players.SpecialAbility;
 
+
 public class SpecialAbility {
     private String name;
     private int cost;
@@ -37,7 +38,7 @@ public class SpecialAbility {
 
     public void activateAbility()
     {
-        this.activateAbility();
+
     }
 
     public String toString() {

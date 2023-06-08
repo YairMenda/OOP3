@@ -1,5 +1,6 @@
 package Tiles.Units;
 
+import Tiles.Position;
 import Tiles.Units.Bars.Bar;
 
 public class Trap extends Unit{
@@ -9,7 +10,7 @@ public class Trap extends Unit{
     private boolean visible;
 
     public Trap(String name, int attackPoints, int defensePoints, Bar health, int x, int y, char symbol, int visibilityTime, int invisibilityTime) {
-        super(name, attackPoints, defensePoints, health, x, y, symbol);
+        super(name, attackPoints, defensePoints, health,new Position(x,y), symbol);
         this.visibilityTime = visibilityTime;
         this.invisibilityTime = invisibilityTime;
         this.ticksCount = 0;
