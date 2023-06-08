@@ -1,4 +1,4 @@
 package Tiles;
 
-public class Tile {
+public interface Tile {
 }
