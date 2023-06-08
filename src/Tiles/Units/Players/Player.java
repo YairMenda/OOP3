@@ -1,4 +1,5 @@
 package Tiles.Units.Players;
+import Tiles.Position;
 import Tiles.Units.Bars.Bar;
 import Tiles.Units.Players.SpecialAbility.SpecialAbility;
 
@@ -8,9 +9,9 @@ public class Player extends Unit {
 
     private int level;
     private SpecialAbility specialAB;
-    public Player(SpecialAbility specialAB, String name, int attackPoints, int defensePoints, Bar health, int x, int y, char symbol)
+    public Player(SpecialAbility specialAB, String name, int attackPoints, int defensePoints, Bar health, Position p)
     {
-        super(name,attackPoints,defensePoints,health,x,y,'@');
+        super(name,attackPoints,defensePoints,health,p,'@');
         this.level = 1;
         this.specialAB = specialAB;
     }
@@ -26,11 +27,14 @@ public class Player extends Unit {
         {
             if(this.getExp() + exp > this.level * 50)
             {
-                exp = exp - this.level * 50 + this.getExp();
+                exp = exp - (this.level * 50 - this.getExp());
                 levelUP();
-                gainEXP(exp);
             }
-            this.setExp(this.getExp()+exp);
+            else
+            {
+                this.setExp(this.getExp()+exp);
+                exp = 0;
+            }
         }
     }
     public void levelUP()
@@ -46,5 +50,21 @@ public class Player extends Unit {
     public String description()
     {
         return super.description() + " Level : " + this.level;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public SpecialAbility getSpecialAB() {
+        return specialAB;
+    }
+
+    public void setSpecialAB(SpecialAbility specialAB) {
+        this.specialAB = specialAB;
     }
 }
