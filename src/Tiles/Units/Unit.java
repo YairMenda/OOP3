@@ -1,6 +1,7 @@
 package Tiles.Units;
 import Tiles.Tile;
 import Tiles.Units.Bars.Bar;
+import Tiles.Position;
 import jdk.jshell.spi.ExecutionControl;
 
 public class Unit extends Tile {
@@ -38,9 +39,9 @@ public class Unit extends Tile {
 
     public String description()
     {
-        System.out.println("Player name: " + this.name + "  AttackPoints: " +
+        return "Player name: " + this.name + "  AttackPoints: " +
                 this.attackPoints + "  DefensePoints: " + this.defensePoints + "  " +
-                this.health.toString() + "  exp: " + this.exp);
+                this.health.toString() + "  exp: " + this.exp;
     }
 
     public String getName() {
