@@ -1,4 +1,4 @@
 package Tiles.Units;
 
-public interface Unit {
+public class Unit {
 }

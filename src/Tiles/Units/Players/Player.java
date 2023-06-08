@@ -1,4 +1,4 @@
 package Tiles.Units.Players;
 
-public interface Player {
+public class Player {
 }
