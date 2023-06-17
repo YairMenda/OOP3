@@ -1,18 +1,22 @@
 package Tiles.Units;
+import Tiles.Empty;
 import Tiles.Tile;
 import Tiles.Units.Bars.Bar;
 import Tiles.Position;
+import Tiles.Wall;
+import Tiles.Units.Players.Player;
+import Tiles.Units.Enemy;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.util.List;
+import java.util.Random;
 
-public class Unit extends Tile {
+public abstract  class Unit extends Tile {
 
     private String name;
     private int attackPoints;
     private int defensePoints;
     private Bar health;
-    private int exp;
 
     public Unit(String name,int attackPoints,int defensePoints,Bar health,Position p,char symbol)
     {
@@ -21,34 +25,52 @@ public class Unit extends Tile {
         this.attackPoints = attackPoints;
         this.defensePoints = defensePoints;
         this.health = health;
-        this.exp = 0;
     }
 
-    public void attack()
+    public void interact(Tile t)
+    {
+        t.accept(this);
+    }
+    public void visit(Wall w)
     {
 
     }
-
-    public void defense(int damage)
+    public void visit(Empty e)
     {
+        this.swapPosition(e);
+    }
+    public abstract void visit(Player p);
 
+    public abstract void visit(Enemy e);
+    public boolean isDead()
+    {
+        return this.getHealth().getCurrent() == 0;
     }
 
-    public void move()
+    public abstract void onDeath(Unit killer);
+    public abstract void gainEXP(int exp);
+    public void combat(Unit u)
     {
-
+        int randomAttack = (new Random()).nextInt(0,attackPoints+1);
+        int randomDefense = (new Random()).nextInt(0,u.getDefensePoints()+1);
+        if(randomAttack > randomDefense)
+            u.getHealth().decreasBarPoints(randomAttack-randomDefense);
+        if(u.isDead())
+            u.onDeath(this);
     }
 
-    public List<Unit> getUnitsInRange(int range)
+    public abstract void activateAbility(List<Enemy> enemies);
+    public void move(Tile t)
     {
-        return null;
+        this.interact(t);
     }
+
 
     public String description()
     {
         return "Player name: " + this.name + "  AttackPoints: " +
                 this.attackPoints + "  DefensePoints: " + this.defensePoints + "  " +
-                this.health.toString() + "  exp: " + this.exp;
+                this.health.toString();
     }
 
     public String getName() {
@@ -83,11 +105,4 @@ public class Unit extends Tile {
         this.health = health;
     }
 
-    public int getExp() {
-        return exp;
-    }
-
-    public void setExp(int exp) {
-        this.exp = exp;
-    }
 }

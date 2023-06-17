@@ -1,17 +1,20 @@
 package Tiles.Units.Players;
-
+import java.util.List;
+import Tiles.Units.Enemy;
 import Tiles.Position;
 import Tiles.Units.Bars.Bar;
-import Tiles.Units.Players.SpecialAbility.FanOfKnives;
+import Tiles.Units.Unit;
+
 
 public class Rogue extends Player{
 
     private Bar energy;
-    public Rogue(String name ,  int attackPoints, int defensePoints, int health, int x, int y ,
-                   int cost) {
-        super(new FanOfKnives("Fan Of Knives", cost, attackPoints)
-                , name, attackPoints, defensePoints, new Bar(health), new Position(x, y));
+    private int abilityCost;
+    public Rogue(String name ,  int attackPoints, int defensePoints, int health, int x, int y , int abilityCost)
+    {
+        super(name, attackPoints, defensePoints, new Bar(health), new Position(x, y));
         this.energy = new Bar(100);
+        this.abilityCost = abilityCost;
     }
 
     public void levelUP()
@@ -21,12 +24,16 @@ public class Rogue extends Player{
         this.setAttackPoints(this.getAttackPoints() + this.getLevel() * 3);
     }
 
-    public void activateAbility()
+    public void activateAbility(List<Enemy> enemies)
     {
-        if(this.energy.getCurrent() >= this.getSpecialAB().getCost())
+        if(this.energy.getCurrent() >= this.abilityCost)
         {
-            super.activateAbility();
-            this.energy.setCurrent(this.energy.getCurrent() - this.getSpecialAB().getCost());
+            List<Enemy> enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) < 2).toList();
+            for(Enemy e : enemiesInRange)
+            {
+                this.attackWithAbility(e,this.getAttackPoints());
+            }
+            this.energy.decreasBarPoints(this.abilityCost);
         }
     }
 

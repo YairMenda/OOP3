@@ -1,26 +1,46 @@
 package Tiles.Units.Players;
+import java.util.List;
+import java.util.Random;
+import Tiles.Tile;
+import Tiles.Units.Enemy;
 import Tiles.Position;
 import Tiles.Units.Bars.Bar;
-import Tiles.Units.Players.SpecialAbility.SpecialAbility;
 
 import Tiles.Units.Unit;
 
-public class Player extends Unit {
+public abstract class Player extends Unit {
 
     private int level;
-    private SpecialAbility specialAB;
-    public Player(SpecialAbility specialAB, String name, int attackPoints, int defensePoints, Bar health, Position p)
+    private int exp;
+/*    private messageCallBack m;*/
+
+    public Player(String name, int attackPoints, int defensePoints, Bar health, Position p)
     {
         super(name,attackPoints,defensePoints,health,p,'@');
         this.level = 1;
-        this.specialAB = specialAB;
+        this.exp = 0;
     }
 
-    public void activateAbility()
+    public void visit(Enemy e)
     {
-        this.specialAB.activateAbility();
+        this.combat(e);
     }
+    public void accept(Unit u)
+    {
+        u.visit(this);
+    }
+    public void visit(Player p)
+    {
 
+    }
+    public abstract void activateAbility(List<Enemy> enemies);
+
+    public void attackWithAbility(Enemy e,  int attackPoints)
+    {
+        e.getHealth().decreasBarPoints(attackPoints);
+        if(e.isDead())
+            e.onDeath(this);
+    }
     public void gainEXP(int exp)
     {
         while(exp > 0)
@@ -37,6 +57,16 @@ public class Player extends Unit {
             }
         }
     }
+
+    public void move(Tile t)
+    {
+        this.interact(t);
+    }
+    public void onDeath(Unit killer)
+    {
+        this.setSymbol('X');
+        killer.swapPosition(this);
+    }
     public void levelUP()
     {
         this.setExp(0);
@@ -46,10 +76,10 @@ public class Player extends Unit {
         this.setAttackPoints(this.getAttackPoints() + this.level*4);
         this.setDefensePoints(this.getDefensePoints() + this.level);
     }
-    
+
     public String description()
     {
-        return super.description() + " Level : " + this.level;
+        return super.description() + " Level : " + this.level + " exp : " + this.exp;
     }
 
     public int getLevel() {
@@ -60,11 +90,12 @@ public class Player extends Unit {
         this.level = level;
     }
 
-    public SpecialAbility getSpecialAB() {
-        return specialAB;
+    public int getExp() {
+        return exp;
     }
 
-    public void setSpecialAB(SpecialAbility specialAB) {
-        this.specialAB = specialAB;
+    public void setExp(int exp) {
+        this.exp = exp;
     }
+
 }
