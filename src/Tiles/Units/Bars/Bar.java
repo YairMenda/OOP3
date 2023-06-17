@@ -9,6 +9,22 @@ public class Bar {
         this.pool = amount;
         this.current = amount;
     }
+
+    public void increaseBarPoints(int amount)
+    {
+        if(this.current + amount > this.pool)
+            this.current = this.pool;
+        else
+            this.current += amount;
+    }
+
+    public void decreasBarPoints(int amount)
+    {
+        if(this.current - amount < 0)
+            this.current = 0;
+        else
+            this.current -= amount;
+    }
     public int getPool() {
         return pool;
     }
@@ -21,8 +37,9 @@ public class Bar {
         return current;
     }
 
-    public void setCurrent(int current) {
-        this.current = current;
+    public void setCurrent(int current)
+    {
+            this.current = current;
     }
 
     public String toString()

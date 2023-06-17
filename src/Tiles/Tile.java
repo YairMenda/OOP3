@@ -1,21 +1,32 @@
 package Tiles;
+import Tiles.Units.Unit;
 
-public class Tile{
-    private char c;
+import java.util.Comparator;
+
+public abstract class Tile implements Comparable<Tile> {
+    private char symbol;
     private Position p;
 
-    public Tile(char c, Position p)
+    public Tile(char symbol, Position p)
     {
-        this.c = c;
+        this.symbol = symbol;
         this.p = p;
     }
 
-    public char getC() {
-        return c;
+    public void swapPosition(Tile t)
+    {
+        Position temp = this.p;
+        this.p = t.getP();
+        t.setP(temp);
     }
 
-    public void setC(char c) {
-        this.c = c;
+    public abstract void accept(Unit u);
+    public char getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(char symbol) {
+        this.symbol = symbol;
     }
 
     public Position getP() {
@@ -27,6 +38,11 @@ public class Tile{
     }
     public String ToString()
     {
-        return this.c + "";
+        return this.symbol + "";
+    }
+
+    public int compareTo(Tile t)
+    {
+        return this.getP().compareTo(t.getP());
     }
 }

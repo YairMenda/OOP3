@@ -10,7 +10,7 @@ public class Position {
         this.y = y;
     }
 
-    public Double Range(Position p)
+    public Double Distance(Position p)
     {
         return Math.sqrt( ((this.x - p.x) ^ 2) + ((this.y - p.y) ^ 2));
     }
@@ -35,7 +35,7 @@ public class Position {
         return "Position( " + x + " , " + y + "' )'";
     }
     //up and right is bigger
-    public int Equals(Position p)
+    public int compareTo(Position p)
     {
         if ( (this.y < p.y) | (this.y == p.y & this.x < p.x) )
             return -1;
