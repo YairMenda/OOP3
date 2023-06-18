@@ -4,6 +4,7 @@ import java.util.Random;
 
 import Messages.MessegeCallBack;
 import Tiles.Position;
+import Tiles.Tile;
 import Tiles.Units.Bars.Bar;
 import Tiles.Units.Enemies.Enemy;
 import Tiles.Units.Players.Player;
@@ -42,8 +43,14 @@ public class Warrior extends Player {
             this.attackWithAbility(randomEnemy,(int)(this.getHealth().getPool()*0.1));
             this.getHealth().increaseBarPoints(10*this.getDefensePoints());
             this.remainingCooldown = this.abilityCooldown;
-            callBack.onMessageRecieved("Player " + this.getName() + " Just activated special ability Avengers Shield!");
+            callBack.onMessageRecieved("Warrior " + this.getName() + " Just activated special ability Avengers Shield!");
         }
+    }
+    public void move(Tile t)
+    {
+        this.interact(t);
+        if(this.remainingCooldown > 0)
+            this.remainingCooldown--;
     }
     public String description()
     {
@@ -51,6 +58,6 @@ public class Warrior extends Player {
     }
     public void info()
     {
-        this.callBack.onMessageRecieved(this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Warrior " +this.getName() + " Stats : " + this.description());
     }
 }

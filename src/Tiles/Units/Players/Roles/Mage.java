@@ -1,6 +1,7 @@
 package Tiles.Units.Players.Roles;
 import Messages.MessegeCallBack;
 import Tiles.Position;
+import Tiles.Tile;
 import Tiles.Units.Bars.Bar;
 import Tiles.Units.Enemies.Enemy;
 import Tiles.Units.Players.Player;
@@ -49,15 +50,21 @@ public class Mage extends Player {
                 this.attackWithAbility(randomEnemy,this.spellPower);
             }
             this.mana.decreasBarPoints(this.abilityCost);
-            callBack.onMessageRecieved("Player " + this.getName() + " Just activated special ability Blizzard!");
+            callBack.onMessageRecieved("Mage " + this.getName() + " Just activated special ability Blizzard!");
         }
+    }
+
+    public void move(Tile t)
+    {
+        this.interact(t);
+        this.mana.increaseBarPoints(this.getLevel());
     }
     public String description()
     {
-        return super.description() + "  Mana : " + mana.toString() + "  Spell Power : " + this.spellPower;
+        return super.description() + "  Mana : (" + mana.toString() + ")  Spell Power : " + this.spellPower;
     }
     public void info()
     {
-        this.callBack.onMessageRecieved(this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Mage " + this.getName() + " Stats : " + this.description());
     }
 }

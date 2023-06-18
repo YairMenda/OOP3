@@ -32,19 +32,19 @@ public class TileFactory {
 
     private Map<Character, Supplier<Enemy>> initEnemies() {
         List<Supplier<Enemy>> enemies = Arrays.asList(
-                () -> new Monster(25, "Lannister Solider", 8, 3, new Bar(80),-1, -1,'s',3),
-                () -> new Monster(50,"Lannister Knight",14,8,new Bar(200),-1 , -1 , 'k' , 4),
-                () -> new Monster(100,"Queen's Guard",20,15,new Bar(400),-1 , -1 , 'q' , 5),
-                () -> new Monster(100,"Wright",30,15,new Bar(600),-1 , -1 , 'z' , 3),
-                () -> new Monster(250,"Bear-Wright",75,30,new Bar(1000),-1 , -1 , 'b' , 4),
-                () -> new Monster(500,"Giant-Wright",100,40,new Bar(1500),-1 , -1 , 'g' , 5),
-                () -> new Monster(1000,"White Walker",150,50,new Bar(2000),-1 , -1 , 'w' , 6),
-                () -> new Monster(500,"The Mountain",60,25,new Bar(1000),-1 , -1 , 'M' , 6),
-                () -> new Monster(1000,"Queen Cersei",10,10,new Bar(100),-1 , -1 , 'C' , 1),
-                () -> new Monster(5000,"Night's King",300,150,new Bar(5000),-1 , -1 , 'K' , 8),
-                () -> new Trap(250,"Bonus Trap",1,1,new Bar(1),-1,-1,'B',1,5),
-                () -> new Trap(100,"Queen's trap",50,10,new Bar(250),-1,-1,'Q',3,7),
-                () -> new Trap(250,"Death Trap",100,20,new Bar(500),-1,-1,'D',1,10)
+                () -> new Monster(25, "Lannister Solider", 8, 3, 80,-1, -1,'s',3),
+                () -> new Monster(50,"Lannister Knight",14,8,200,-1 , -1 , 'k' , 4),
+                () -> new Monster(100,"Queen's Guard",20,15,400,-1 , -1 , 'q' , 5),
+                () -> new Monster(100,"Wright",30,15,600,-1 , -1 , 'z' , 3),
+                () -> new Monster(250,"Bear-Wright",75,30,1000,-1 , -1 , 'b' , 4),
+                () -> new Monster(500,"Giant-Wright",100,40,1500,-1 , -1 , 'g' , 5),
+                () -> new Monster(1000,"White Walker",150,50,2000,-1 , -1 , 'w' , 6),
+                () -> new Monster(500,"The Mountain",60,25,1000,-1 , -1 , 'M' , 6),
+                () -> new Monster(1000,"Queen Cersei",10,10,100,-1 , -1 , 'C' , 1),
+                () -> new Monster(5000,"Night's King",300,150,5000,-1 , -1 , 'K' , 8),
+                () -> new Trap(250,"Bonus Trap",1,1,1,-1,-1,'B',1,5),
+                () -> new Trap(100,"Queen's trap",50,10,250,-1,-1,'Q',3,7),
+                () -> new Trap(250,"Death Trap",100,20,500,-1,-1,'D',1,10)
 
         );
 
@@ -65,11 +65,11 @@ public class TileFactory {
 
     public Player getPlayer(int index)
     {
-        return this.playersList.get(index);
+        return this.playersList.get(index).get();
     }
     public Enemy getEnemy(char c)
     {
-        return this.enemiesMap.get(c);
+        return this.enemiesMap.get(c).get();
     }
 
     public Tile getTile(char c,int x,int y)

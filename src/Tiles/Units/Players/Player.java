@@ -39,9 +39,12 @@ public abstract class Player extends Unit {
 
     public void attackWithAbility(Enemy e,  int attackPoints)
     {
-        e.getHealth().decreasBarPoints(attackPoints);
-        if(e.isDead())
-            e.onDeath(this);
+        if(attackPoints > e.getDefensePoints())
+        {
+            e.getHealth().decreasBarPoints(attackPoints - e.getDefensePoints());
+            if (e.isDead())
+                e.onDeath(this);
+        }
     }
     public void gainEXP(int exp)
     {
@@ -61,10 +64,7 @@ public abstract class Player extends Unit {
         }
     }
 
-    public void move(Tile t)
-    {
-        this.interact(t);
-    }
+    public abstract void move(Tile t);
     public void onDeath(Unit killer)
     {
         this.setSymbol('X');

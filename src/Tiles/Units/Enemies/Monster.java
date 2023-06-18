@@ -12,9 +12,9 @@ public class Monster extends Enemy {
     private int vision;
     private MessegeCallBack callBack;
 
-    public Monster(int expRaise, String name, int attackPoints, int defensePoints, Bar health, int x, int y, char symbol, int vision)
+    public Monster(int expRaise, String name, int attackPoints, int defensePoints, int health, int x, int y, char symbol, int vision)
     {
-        super(expRaise, name,attackPoints,defensePoints,health,new Position(x,y),symbol);
+        super(expRaise, name,attackPoints,defensePoints,new Bar(health),new Position(x,y),symbol);
         this.vision = vision;
         callBack = new MessegeCallBack();
     }
@@ -90,10 +90,10 @@ public class Monster extends Enemy {
     }
     @Override
     public String description() {
-        return super.description() + " vision = " + vision;
+        return super.description() + " exp raise : " + this.getExpRaise() + " vision = " + vision;
     }
     public void info()
     {
-        this.callBack.onMessageRecieved(this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Monster " + this.getName() + " Stats : " + this.description());
     }
 }

@@ -2,6 +2,7 @@ package Tiles.Units.Players.Roles;
 import java.util.List;
 
 import Messages.MessegeCallBack;
+import Tiles.Tile;
 import Tiles.Units.Enemies.Enemy;
 import Tiles.Position;
 import Tiles.Units.Bars.Bar;
@@ -38,16 +39,21 @@ public class Rogue extends Player {
                 this.attackWithAbility(e,this.getAttackPoints());
             }
             this.energy.decreasBarPoints(this.abilityCost);
-            callBack.onMessageRecieved("Player " + this.getName() + " Just activated special ability Fan Of Knives!");
+            callBack.onMessageRecieved("Rogue " + this.getName() + " Just activated special ability Fan Of Knives!");
         }
     }
 
+    public void move(Tile t)
+    {
+        this.interact(t);
+        this.energy.increaseBarPoints(10);
+    }
     public String description()
     {
         return super.description() + " Energy : " + this.energy.toString();
     }
     public void info()
     {
-        this.callBack.onMessageRecieved(this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Rogue " +this.getName() + " Stats : " + this.description());
     }
 }

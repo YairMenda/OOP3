@@ -60,7 +60,10 @@ public abstract  class Unit extends Tile {
         int randomAttack = (new Random()).nextInt(0,attackPoints+1);
         int randomDefense = (new Random()).nextInt(0,u.getDefensePoints()+1);
         if(randomAttack > randomDefense)
-            u.getHealth().decreasBarPoints(randomAttack-randomDefense);
+        {
+            u.getHealth().decreasBarPoints(randomAttack - randomDefense);
+            callBack.onMessageRecieved(this.getName() + " attacked with " + (randomAttack - randomDefense) + " points");
+        }
         if(u.isDead())
             u.onDeath(this);
     }
@@ -74,9 +77,9 @@ public abstract  class Unit extends Tile {
 
     public String description()
     {
-        return "Player name: " + this.name + "  AttackPoints: " +
+        return " name: " + this.name + "  AttackPoints: " +
                 this.attackPoints + "  DefensePoints: " + this.defensePoints + "  " +
-                this.health.toString();
+                "Health Points : (" + this.health.toString() + ")";
     }
     public abstract void info();
 
