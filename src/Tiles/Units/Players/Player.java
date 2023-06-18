@@ -1,8 +1,9 @@
 package Tiles.Units.Players;
 import java.util.List;
-import java.util.Random;
+
+import Messages.MessegeCallBack;
 import Tiles.Tile;
-import Tiles.Units.Enemy;
+import Tiles.Units.Enemies.Enemy;
 import Tiles.Position;
 import Tiles.Units.Bars.Bar;
 
@@ -12,13 +13,14 @@ public abstract class Player extends Unit {
 
     private int level;
     private int exp;
-/*    private messageCallBack m;*/
+    private MessegeCallBack callBack;
 
     public Player(String name, int attackPoints, int defensePoints, Bar health, Position p)
     {
         super(name,attackPoints,defensePoints,health,p,'@');
         this.level = 1;
         this.exp = 0;
+        callBack = new MessegeCallBack();
     }
 
     public void visit(Enemy e)
@@ -43,6 +45,7 @@ public abstract class Player extends Unit {
     }
     public void gainEXP(int exp)
     {
+        callBack.onMessageRecieved("Player " + this.getName() + " just Gained " + exp + " EXP");
         while(exp > 0)
         {
             if(this.getExp() + exp > this.level * 50)
@@ -66,6 +69,7 @@ public abstract class Player extends Unit {
     {
         this.setSymbol('X');
         killer.swapPosition(this);
+        callBack.onMessageRecieved("Player " + this.getName() + " died.");
     }
     public void levelUP()
     {
@@ -75,12 +79,14 @@ public abstract class Player extends Unit {
         this.getHealth().setCurrent(this.getHealth().getPool());
         this.setAttackPoints(this.getAttackPoints() + this.level*4);
         this.setDefensePoints(this.getDefensePoints() + this.level);
+        callBack.onMessageRecieved("Player " + this.getName() + " just leveled up to level: " + this.getLevel());
     }
 
     public String description()
     {
         return super.description() + " Level : " + this.level + " exp : " + this.exp;
     }
+    public abstract void info();
 
     public int getLevel() {
         return level;

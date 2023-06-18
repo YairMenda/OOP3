@@ -1,18 +1,22 @@
-package Tiles.Units;
+package Tiles.Units.Enemies;
+import Messages.MessegeCallBack;
 import Tiles.Units.Players.Player;
 import Tiles.Position;
 import Tiles.Units.Bars.Bar;
 import Tiles.Tile;
+import Tiles.Units.Unit;
 
 import java.util.Random;
 
 public class Monster extends Enemy {
     private int vision;
+    private MessegeCallBack callBack;
 
     public Monster(int expRaise, String name, int attackPoints, int defensePoints, Bar health, int x, int y, char symbol, int vision)
     {
         super(expRaise, name,attackPoints,defensePoints,health,new Position(x,y),symbol);
         this.vision = vision;
+        callBack = new MessegeCallBack();
     }
 
     public void visit (Player p)
@@ -49,6 +53,7 @@ public class Monster extends Enemy {
     {
         killer.gainEXP(this.getExpRaise());
         killer.swapPosition(this);
+        callBack.onMessageRecieved("Monster " + this.getName() + " died.");
     }
 
     public void gainEXP(int exp)
@@ -86,5 +91,9 @@ public class Monster extends Enemy {
     @Override
     public String description() {
         return super.description() + " vision = " + vision;
+    }
+    public void info()
+    {
+        this.callBack.onMessageRecieved(this.getName() + " Stats : " + this.description());
     }
 }

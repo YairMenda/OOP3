@@ -1,18 +1,22 @@
-package Tiles.Units.Players;
+package Tiles.Units.Players.Roles;
+import Messages.MessegeCallBack;
 import Tiles.Position;
 import Tiles.Units.Bars.Bar;
-import Tiles.Units.Enemy;
-import Tiles.Units.Unit;
+import Tiles.Units.Enemies.Enemy;
+import Tiles.Units.Players.Player;
+
 import java.util.List;
 import java.util.Random;
 
-public class Mage extends Player{
+public class Mage extends Player {
 
     private Bar mana;
     private int spellPower;
     private int abilityRange;
     private int abilityCost;
     private int hitsCount;
+
+    private MessegeCallBack callBack;
 
     public Mage(String name ,  int attackPoints, int defensePoints, int health, int x, int y ,
                 int manaPool , int spellPower , int abilityCost , int hitsCount , int abilityRange)
@@ -23,6 +27,7 @@ public class Mage extends Player{
         this.abilityRange = abilityRange;
         this.abilityCost = abilityCost;
         this.hitsCount = hitsCount;
+        callBack = new MessegeCallBack();
     }
 
     public void LevelUP()
@@ -44,10 +49,15 @@ public class Mage extends Player{
                 this.attackWithAbility(randomEnemy,this.spellPower);
             }
             this.mana.decreasBarPoints(this.abilityCost);
+            callBack.onMessageRecieved("Player " + this.getName() + " Just activated special ability Blizzard!");
         }
     }
     public String description()
     {
         return super.description() + "  Mana : " + mana.toString() + "  Spell Power : " + this.spellPower;
+    }
+    public void info()
+    {
+        this.callBack.onMessageRecieved(this.getName() + " Stats : " + this.description());
     }
 }

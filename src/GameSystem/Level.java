@@ -2,16 +2,12 @@ package GameSystem;
 
 import Tiles.Empty;
 import Tiles.Tile;
-import Tiles.Units.Monster;
+import Tiles.Units.Enemies.Monster;
 import Tiles.Units.Players.Player;
-import Tiles.Units.Trap;
+import Tiles.Units.Enemies.Trap;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
