@@ -44,7 +44,7 @@ public class Bar {
 
     public String toString()
     {
-        return " Pool Points : " + this.pool + " Current Points : " + this.current;
+        return " Max Points : " + this.pool + " Current Points : " + this.current;
     }
 
 }

@@ -13,8 +13,8 @@ public class Trap extends Enemy {
     private boolean visible;
     private MessegeCallBack callBack;
 
-    public Trap(int expRaise, String name, int attackPoints, int defensePoints, Bar health, int x, int y, char symbol, int visibilityTime, int invisibilityTime) {
-        super(expRaise, name, attackPoints, defensePoints, health,new Position(x,y), symbol);
+    public Trap(int expRaise, String name, int attackPoints, int defensePoints, int health, int x, int y, char symbol, int visibilityTime, int invisibilityTime) {
+        super(expRaise, name, attackPoints, defensePoints, new Bar(health),new Position(x,y), symbol);
         this.visibilityTime = visibilityTime;
         this.invisibilityTime = invisibilityTime;
         this.ticksCount = 0;
@@ -61,11 +61,11 @@ public class Trap extends Enemy {
     @Override
     public String description()
     {
-        return super.description() + "visibilityTime = " + this.visibilityTime + "InVisibilityTime = "
+        return super.description() + " exp raise : " + this.getExpRaise() + "visibilityTime = " + this.visibilityTime + "InVisibilityTime = "
                 + this.invisibilityTime + "visible = " + this.visible + " ticksCount = " + this.ticksCount;
     }
     public void info()
     {
-        this.callBack.onMessageRecieved(this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Trap " + this.getName() + " Stats : " + this.description());
     }
 }
