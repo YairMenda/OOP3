@@ -26,6 +26,7 @@ public class Monster extends Enemy {
         this.combat(p);
     }
 
+/*
     public void visit (Trap t)
     {
 
@@ -35,10 +36,11 @@ public class Monster extends Enemy {
     {
         this.swapPosition(m);
     }
+*/
 
     public void visit(Enemy e)
     {
-        e.visit(this);
+        /*e.visit(this);*/
     }
     public void accept(Unit u)
     {
