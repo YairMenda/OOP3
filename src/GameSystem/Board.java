@@ -5,43 +5,34 @@ import Tiles.Tile;
 
 public class Board {
 
-    private HashMap<Position,Tile> board;
+    private Tile[][] board;
     private int boardCurrentY;
-    private int boardCurrentX;
 
-    public Board()
+    public Board(int sizeX,int sizeY)
     {
-        this.board = new HashMap<>();
-        this.boardCurrentY= -1;
-        this.boardCurrentX = -1;
+        this.board = new Tile[sizeX][sizeY];
+        this.boardCurrentY= 0;
 
     }
-
     public void addTile(Tile t)
     {
-        this.board.put(t.getP(),t);
+        this.board[t.getP().getX()][t.getP().getY()] = t;
     }
-    public HashMap<Position,Tile> getBoard()
-    {
-        return this.board;
-    }
-
     public Tile getTileInPosition(Position p)
     {
-        return this.board.get(p);
+      return this.board[p.getX()][p.getY()];
     }
 
     public void increaseHeight()
     {
         this.boardCurrentY++;
     }
-    public void increaseX()
+
+    public void swapPosition(Position p1,Position p2)
     {
-        this.boardCurrentX++;
-    }
-    public void xToZero()
-    {
-        this.boardCurrentX = 0;
+        Tile temp = this.board[p2.getX()][p2.getY()];
+        this.board[p2.getX()][p2.getY()] = this.board[p1.getX()][p1.getY()];
+        this.board[p1.getX()][p1.getY()] = temp;
     }
     public int getBoardCurrentY() {
         return boardCurrentY;
@@ -51,26 +42,23 @@ public class Board {
         this.boardCurrentY = boardCurrentY;
     }
 
-    public int getBoardCurrentX() {
-        return boardCurrentX;
-    }
-
-    public void setBoardCurrentX(int boardCurrentX) {
-        this.boardCurrentX = boardCurrentX;
-    }
-
     // we need implement this
     @Override
     public String toString() {
 
         String boardString =  "";
 
-        for (int y= 0; y <= this.boardCurrentY; y++) {
-            for (int x = 0; x <= this.boardCurrentX; x++) {
-                boardString += getTileInPosition(new Position(x, y));
+        for (int y= 0; y < this.board[0].length; y++) {
+            for (int x = 0; x < this.board.length; x++) {
+                boardString += getTileInPosition(new Position(x, y)).toString();
             }
+            boardString += "\n";
         }
 
         return boardString;
+    }
+
+    public Tile[][] getBoard() {
+        return board;
     }
 }

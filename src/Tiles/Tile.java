@@ -39,7 +39,7 @@ public abstract class Tile implements Comparable<Tile> {
     public void setP(Position p) {
         this.p = p;
     }
-    public String ToString()
+    public String toString()
     {
         return this.symbol + "";
     }

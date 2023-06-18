@@ -4,6 +4,7 @@ import Tiles.Position;
 import Tiles.Tile;
 import Tiles.Units.Bars.Bar;
 import Tiles.Units.Enemies.Enemy;
+import Tiles.Units.Players.Roles.Hunter;
 import Tiles.Units.Players.Roles.Mage;
 import Tiles.Units.Players.Player;
 import Tiles.Units.Enemies.Monster;
@@ -58,8 +59,8 @@ public class TileFactory {
                 () -> new Mage("Melisandre", 5, 1, 100, -1, -1, 300, 15,30,5, 6),
                 () -> new Mage("Thoros of Myr", 25, 4, 250, -1, -1, 150, 20,20,3, 4),
                 () -> new Rogue("Arya Stark", 40, 2, 150, -1,-1,20),
-                () -> new Rogue("Bronn", 35, 3, 250, -1,-1,50)
-                //() -> new Hunter("Ygritte", 220, 30, 2, 6)
+                () -> new Rogue("Bronn", 35, 3, 250, -1,-1,50),
+                () -> new Hunter("Barami", 30, 2, 220, -1,-1,6)
         );
     }
 
@@ -82,7 +83,7 @@ public class TileFactory {
         Enemy e = getEnemy(c);
         e.setP(new Position(x,y));
 
-        return getEnemy(c);
+        return e;
     }
 
 
@@ -90,21 +91,4 @@ public class TileFactory {
         return playersList.stream().map(Supplier::get).collect(Collectors.toList());
     }
 
-    // TODO: Add additional callbacks of your choice
-
-//    public Enemy produceEnemy(char tile, Position position, ...) {
-//        ...
-//    }
-//
-//    public Player producePlayer(int idx, ...){
-//		...
-//    }
-//
-//    public Empty produceEmpty(Position position, ...){
-//        ...
-//    }
-//
-//    public Wall produceWall(Position position, ...){
-//        ...
-//    }
 }
