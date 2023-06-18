@@ -1,20 +1,24 @@
-package Tiles.Units.Players;
+package Tiles.Units.Players.Roles;
 import java.util.List;
-import Tiles.Units.Enemy;
+
+import Messages.MessegeCallBack;
+import Tiles.Units.Enemies.Enemy;
 import Tiles.Position;
 import Tiles.Units.Bars.Bar;
-import Tiles.Units.Unit;
+import Tiles.Units.Players.Player;
 
 
-public class Rogue extends Player{
+public class Rogue extends Player {
 
     private Bar energy;
     private int abilityCost;
+    private MessegeCallBack callBack;
     public Rogue(String name ,  int attackPoints, int defensePoints, int health, int x, int y , int abilityCost)
     {
         super(name, attackPoints, defensePoints, new Bar(health), new Position(x, y));
         this.energy = new Bar(100);
         this.abilityCost = abilityCost;
+        callBack = new MessegeCallBack();
     }
 
     public void levelUP()
@@ -34,11 +38,16 @@ public class Rogue extends Player{
                 this.attackWithAbility(e,this.getAttackPoints());
             }
             this.energy.decreasBarPoints(this.abilityCost);
+            callBack.onMessageRecieved("Player " + this.getName() + " Just activated special ability Fan Of Knives!");
         }
     }
 
     public String description()
     {
         return super.description() + " Energy : " + this.energy.toString();
+    }
+    public void info()
+    {
+        this.callBack.onMessageRecieved(this.getName() + " Stats : " + this.description());
     }
 }

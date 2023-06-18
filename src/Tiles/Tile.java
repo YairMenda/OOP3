@@ -1,4 +1,5 @@
 package Tiles;
+import Messages.MessegeCallBack;
 import Tiles.Units.Unit;
 
 import java.util.Comparator;
@@ -6,11 +7,13 @@ import java.util.Comparator;
 public abstract class Tile implements Comparable<Tile> {
     private char symbol;
     private Position p;
+    private MessegeCallBack callBack;
 
     public Tile(char symbol, Position p)
     {
         this.symbol = symbol;
         this.p = p;
+        this.callBack = new MessegeCallBack();
     }
 
     public void swapPosition(Tile t)

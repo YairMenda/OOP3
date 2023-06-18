@@ -1,13 +1,17 @@
-package Tiles.Units;
+package Tiles.Units.Enemies;
+import Messages.MessegeCallBack;
+import Tiles.Units.Enemies.Enemy;
 import Tiles.Units.Players.Player;
 import Tiles.Position;
 import Tiles.Units.Bars.Bar;
+import Tiles.Units.Unit;
 
-public class Trap extends Enemy{
+public class Trap extends Enemy {
     private int visibilityTime;
     private int invisibilityTime;
     private int ticksCount;
     private boolean visible;
+    private MessegeCallBack callBack;
 
     public Trap(int expRaise, String name, int attackPoints, int defensePoints, Bar health, int x, int y, char symbol, int visibilityTime, int invisibilityTime) {
         super(expRaise, name, attackPoints, defensePoints, health,new Position(x,y), symbol);
@@ -15,6 +19,7 @@ public class Trap extends Enemy{
         this.invisibilityTime = invisibilityTime;
         this.ticksCount = 0;
         this.visible = true;
+        this.callBack = new MessegeCallBack();
     }
     public void visit (Player p)
     {
@@ -33,6 +38,7 @@ public class Trap extends Enemy{
     {
         killer.gainEXP(this.getExpRaise());
         killer.swapPosition(this);
+        callBack.onMessageRecieved("Trap " + this.getName() + " died.");
     }
     public void gainEXP(int exp) { }
 
@@ -57,5 +63,9 @@ public class Trap extends Enemy{
     {
         return super.description() + "visibilityTime = " + this.visibilityTime + "InVisibilityTime = "
                 + this.invisibilityTime + "visible = " + this.visible + " ticksCount = " + this.ticksCount;
+    }
+    public void info()
+    {
+        this.callBack.onMessageRecieved(this.getName() + " Stats : " + this.description());
     }
 }

@@ -1,13 +1,14 @@
 package Tiles.Units;
+import Messages.MessegeCallBack;
 import Tiles.Empty;
 import Tiles.Tile;
 import Tiles.Units.Bars.Bar;
 import Tiles.Position;
 import Tiles.Wall;
 import Tiles.Units.Players.Player;
-import Tiles.Units.Enemy;
-import jdk.jshell.spi.ExecutionControl;
+import Tiles.Units.Enemies.Enemy;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ public abstract  class Unit extends Tile {
     private int attackPoints;
     private int defensePoints;
     private Bar health;
+    private MessegeCallBack callBack;
 
     public Unit(String name,int attackPoints,int defensePoints,Bar health,Position p,char symbol)
     {
@@ -25,6 +27,7 @@ public abstract  class Unit extends Tile {
         this.attackPoints = attackPoints;
         this.defensePoints = defensePoints;
         this.health = health;
+        this.callBack = new MessegeCallBack();
     }
 
     public void interact(Tile t)
@@ -51,6 +54,9 @@ public abstract  class Unit extends Tile {
     public abstract void gainEXP(int exp);
     public void combat(Unit u)
     {
+        this.callBack.onMessageRecieved(this.getName() + " just started a fight with " + u.getName());
+        this.info();
+        u.info();
         int randomAttack = (new Random()).nextInt(0,attackPoints+1);
         int randomDefense = (new Random()).nextInt(0,u.getDefensePoints()+1);
         if(randomAttack > randomDefense)
@@ -72,6 +78,7 @@ public abstract  class Unit extends Tile {
                 this.attackPoints + "  DefensePoints: " + this.defensePoints + "  " +
                 this.health.toString();
     }
+    public abstract void info();
 
     public String getName() {
         return name;
