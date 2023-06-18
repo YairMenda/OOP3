@@ -1,4 +1,7 @@
-package Tiles;
+package GameSystem;
+import Tiles.Empty;
+import Tiles.Position;
+import Tiles.Tile;
 import Tiles.Units.Bars.Bar;
 import Tiles.Units.Enemy;
 import Tiles.Units.Players.Mage;
@@ -7,6 +10,8 @@ import Tiles.Units.Monster;
 import Tiles.Units.Players.Rogue;
 import Tiles.Units.Players.Warrior;
 import Tiles.Units.Trap;
+import Tiles.Wall;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +62,29 @@ public class TileFactory {
                 //() -> new Hunter("Ygritte", 220, 30, 2, 6)
         );
     }
+
+    public Player getPlayer(int index)
+    {
+        return this.playersList.get(index);
+    }
+    public Enemy getEnemy(char c)
+    {
+        return this.enemiesMap.get(c);
+    }
+
+    public Tile getTile(char c,int x,int y)
+    {
+        if (c == '#')
+            return new Wall(x,y);
+        if (c == '.')
+            return new Empty(x,y);
+
+        Enemy e = getEnemy(c);
+        e.setP(new Position(x,y));
+
+        return getEnemy(c);
+    }
+
 
     public List<Player> listPlayers(){
         return playersList.stream().map(Supplier::get).collect(Collectors.toList());
