@@ -4,6 +4,8 @@ import Tiles.Position;
 import Tiles.Units.Bars.Bar;
 import Tiles.Tile;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class Monster extends Enemy {
@@ -59,29 +61,34 @@ public class Monster extends Enemy {
     {
         this.interact(t);
     }
-    public int chooseDirection(Player p)
-    {
-        if(this.getP().Distance(p.getP()) < this.vision)
-        {
+    public String chooseDirection(Player p) {
+
+        List<String> actions = new LinkedList<String>();
+        actions.add("a");
+        actions.add("w");
+        actions.add("d");
+        actions.add("s");
+
+        if (this.getP().Distance(p.getP()) < this.vision) {
             int dx = this.getP().getX() - p.getP().getX();
             int dy = this.getP().getY() - p.getP().getY();
-            if(Math.abs(dx) > Math.abs(dy))
-            {
-                if(dx > 0)
-                    return 0;
+            if (Math.abs(dx) > Math.abs(dy)) {
+                if (dx > 0)
+                    return actions.get(0);
                 else
-                    return 2;
-            }
-            else
-            {
-                if(dy > 0)
-                    return 1;
+                    return actions.get(2);
+            } else {
+                if (dy > 0)
+                    return actions.get(1);
                 else
-                    return 3;
+                    return actions.get(3);
             }
         }
-        else
-            return ((new Random()).nextInt(0,4));
+        else {
+            Random random = new Random();
+            int randomIndex = random.nextInt(actions.size());
+            return (actions.get(randomIndex));
+        }
     }
     @Override
     public String description() {

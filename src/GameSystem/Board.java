@@ -17,9 +17,9 @@ public class Board {
 
     }
 
-    public void addTile(Position p, Tile t)
+    public void addTile(Tile t)
     {
-        this.board.put(p,t);
+        this.board.put(t.getP(),t);
     }
     public HashMap<Position,Tile> getBoard()
     {
@@ -62,12 +62,15 @@ public class Board {
     // we need implement this
     @Override
     public String toString() {
-        return "Board{" +
-                "board=" + board +
-                '}';
 
-        //for x , y till max
-        //(0,0) -> (x,y)
-        // concat to the string
+        String boardString =  "";
+
+        for (int y= 0; y <= this.boardCurrentY; y++) {
+            for (int x = 0; x <= this.boardCurrentX; x++) {
+                boardString += getTileInPosition(new Position(x, y));
+            }
+        }
+
+        return boardString;
     }
 }

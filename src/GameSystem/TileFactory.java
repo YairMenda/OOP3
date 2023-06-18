@@ -65,11 +65,11 @@ public class TileFactory {
 
     public Player getPlayer(int index)
     {
-        return this.playersList.get(index);
+        return this.playersList.get(index).get();
     }
     public Enemy getEnemy(char c)
     {
-        return this.enemiesMap.get(c);
+        return this.enemiesMap.get(c).get();
     }
 
     public Tile getTile(char c,int x,int y)
