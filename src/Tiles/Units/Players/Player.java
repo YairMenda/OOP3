@@ -42,6 +42,8 @@ public abstract class Player extends Unit {
         if(attackPoints > e.getDefensePoints())
         {
             e.getHealth().decreasBarPoints(attackPoints - e.getDefensePoints());
+            callBack.onMessageRecieved(this.getName() + " attacked " + e.getName() +
+                    " with " + (attackPoints - e.getDefensePoints()) + " attack points!");
             if (e.isDead())
                 e.onDeath(this);
         }
