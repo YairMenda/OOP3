@@ -31,7 +31,7 @@ public class Mage extends Player {
         callBack = new MessegeCallBack();
     }
 
-    public void LevelUP()
+    public void levelUP()
     {
         super.levelUP();
         this.mana.setPool(mana.getPool() + this.getLevel()*25);
@@ -41,18 +41,24 @@ public class Mage extends Player {
 
     public void activateAbility(List<Enemy> enemies)
     {
+        callBack.onMessageRecieved("Mage " + this.getName() + " Just activated special ability Blizzard!");
         if(this.mana.getCurrent() >= this.abilityCost)
         {
             List<Enemy> enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) <= this.abilityRange).toList();
-            callBack.onMessageRecieved("Mage " + this.getName() + " Just activated special ability Blizzard!");
-            for(int i = 1 ; i <= this.hitsCount ; i++) {
-                Enemy randomEnemy = enemiesInRange.get((new Random()).nextInt(0, enemiesInRange.size()));
-                if (!randomEnemy.isDead()) {
-                    this.attackWithAbility(randomEnemy, this.spellPower);
+            if (enemiesInRange.size() == 0)
+                callBack.onMessageRecieved("No enemies in Blizzard Range");
+            else
+            {
+                this.mana.decreasBarPoints(this.abilityCost);
+                for (int i = 1; i <= this.hitsCount && enemiesInRange.size() > 0; i++) {
+                    Enemy randomEnemy = enemiesInRange.get((new Random()).nextInt(0, enemiesInRange.size()));
+                    if (!randomEnemy.isDead()) {
+                        this.attackWithAbility(randomEnemy, this.spellPower);
+                    }
+                    else
+                        enemiesInRange.remove(randomEnemy);
                 }
             }
-            this.mana.decreasBarPoints(this.abilityCost);
-
         }
         else
             this.callBack.onMessageRecieved("Not enough mana to use special ability");
@@ -65,7 +71,7 @@ public class Mage extends Player {
     }
     public String description()
     {
-        return super.description() + "  Mana : (" + mana.toString() + ")  Spell Power : " + this.spellPower;
+        return super.description() + "  Mana : (" + mana.toString() + ")  Spell Power : " + this.spellPower + " ability range " + this.abilityRange;
     }
     public void info()
     {

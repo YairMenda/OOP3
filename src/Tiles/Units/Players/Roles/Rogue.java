@@ -31,16 +31,18 @@ public class Rogue extends Player {
 
     public void activateAbility(List<Enemy> enemies)
     {
-        if(this.energy.getCurrent() >= this.abilityCost)
-        {
+        callBack.onMessageRecieved("Rogue " + this.getName() + " Just activated special ability Fan Of Knives!");
+        if(this.energy.getCurrent() >= this.abilityCost) {
             List<Enemy> enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) < 2).toList();
-            callBack.onMessageRecieved("Rogue " + this.getName() + " Just activated special ability Fan Of Knives!");
-
-            for(Enemy e : enemiesInRange)
+            if (enemiesInRange.size() == 0)
+                callBack.onMessageRecieved("No enemies in Fan of Knives range ");
+            else
             {
-                this.attackWithAbility(e,this.getAttackPoints());
+                this.energy.decreasBarPoints(this.abilityCost);
+                for (Enemy e : enemiesInRange) {
+                    this.attackWithAbility(e, this.getAttackPoints());
+                }
             }
-            this.energy.decreasBarPoints(this.abilityCost);
         }
         else
             this.callBack.onMessageRecieved("Not enough energy to use special ability");

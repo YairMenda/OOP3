@@ -19,7 +19,7 @@ public abstract class Enemy extends Unit {
     }
 
     public void activateAbility(List<Enemy> enemies) { }
-    public abstract void onDeath(Unit killer);
+    public abstract void onDeath(Unit killer,boolean fromAbility);
     public abstract void info();
     public abstract void visit(Player p);
     public abstract void visit(Enemy e);

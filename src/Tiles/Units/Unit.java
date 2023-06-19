@@ -50,7 +50,7 @@ public abstract  class Unit extends Tile {
         return this.getHealth().getCurrent() == 0;
     }
 
-    public abstract void onDeath(Unit killer);
+    public abstract void onDeath(Unit killer,boolean fromAbility);
     public abstract void gainEXP(int exp);
     public void combat(Unit u)
     {
@@ -66,9 +66,9 @@ public abstract  class Unit extends Tile {
             u.info();
         }
         else
-            callBack.onMessageRecieved("Attack was too low to break" + u.getName() + "defense");
+            callBack.onMessageRecieved("Attack was too low to break " + u.getName() + " defense");
         if(u.isDead())
-            u.onDeath(this);
+            u.onDeath(this,false);
     }
 
     public abstract void activateAbility(List<Enemy> enemies);
