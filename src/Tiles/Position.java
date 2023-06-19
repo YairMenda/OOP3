@@ -12,7 +12,7 @@ public class Position {
 
     public Double Distance(Position p)
     {
-        return Math.sqrt( ((this.x - p.x) ^ 2) + ((this.y - p.y) ^ 2));
+        return Math.sqrt( (((this.x - p.x) * (this.x - p.x))) + ((this.y - p.y)*(this.y - p.y)));
     }
 
     public int getX() {

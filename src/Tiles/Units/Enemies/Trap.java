@@ -12,6 +12,7 @@ public class Trap extends Enemy {
     private int ticksCount;
     private boolean visible;
     private MessegeCallBack callBack;
+    private char defSymbol;
 
     public Trap(int expRaise, String name, int attackPoints, int defensePoints, int health, int x, int y, char symbol, int visibilityTime, int invisibilityTime) {
         super(expRaise, name, attackPoints, defensePoints, new Bar(health),new Position(x,y), symbol);
@@ -19,6 +20,7 @@ public class Trap extends Enemy {
         this.invisibilityTime = invisibilityTime;
         this.ticksCount = 0;
         this.visible = true;
+        this.defSymbol = symbol;
         this.callBack = new MessegeCallBack();
     }
     public void visit (Player p)
@@ -34,10 +36,11 @@ public class Trap extends Enemy {
     {
         u.visit(this);
     }
-    public void onDeath(Unit killer)
+    public void onDeath(Unit killer,boolean fromAbility)
     {
         killer.gainEXP(this.getExpRaise());
-        killer.swapPosition(this);
+        if (!fromAbility)
+            killer.swapPosition(this);
         callBack.onMessageRecieved("Trap " + this.getName() + " died.");
     }
     public void gainEXP(int exp) { }
@@ -45,6 +48,12 @@ public class Trap extends Enemy {
     public void gameTick(Player p)
     {
         this.visible = ticksCount < visibilityTime;
+
+        if (visible)
+            this.setSymbol(defSymbol);
+        else
+            this.setSymbol('.');
+
         if(ticksCount == visibilityTime+invisibilityTime)
             ticksCount = 0;
         else
@@ -61,8 +70,8 @@ public class Trap extends Enemy {
     @Override
     public String description()
     {
-        return super.description() + " exp raise : " + this.getExpRaise() + "visibilityTime = " + this.visibilityTime + "InVisibilityTime = "
-                + this.invisibilityTime + "visible = " + this.visible + " ticksCount = " + this.ticksCount;
+        return super.description() + " exp raise : " + this.getExpRaise() + " visibilityTime = " + this.visibilityTime + " InVisibilityTime = "
+                + this.invisibilityTime + " visible = " + this.visible + " ticksCount = " + this.ticksCount;
     }
     public void info()
     {

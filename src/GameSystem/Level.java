@@ -109,8 +109,8 @@ public class Level {
         Position prev = player.getP();
         if (action.equals("e")) {
             List<Enemy> castAbilityOn = new LinkedList<Enemy>();
-            castAbilityOn.addAll(monsters);
-            castAbilityOn.addAll(traps);
+            castAbilityOn.addAll(this.monsters);
+            castAbilityOn.addAll(this.traps);
             this.player.activateAbility(castAbilityOn);
         }
         else

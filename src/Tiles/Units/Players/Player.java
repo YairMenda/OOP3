@@ -46,10 +46,10 @@ public abstract class Player extends Unit {
                     " with " + (attackPoints - e.getDefensePoints()) + " attack points!");
             e.info();
             if (e.isDead())
-                e.onDeath(this);
+                e.onDeath(this,true);
         }
         else
-            callBack.onMessageRecieved("Attack was too low to break" + e.getName() + "defense");
+            callBack.onMessageRecieved("Attack was too low to break " + e.getName() + " defense");
 
     }
     public void gainEXP(int exp)
@@ -72,7 +72,7 @@ public abstract class Player extends Unit {
     }
 
     public abstract void move(Tile t);
-    public void onDeath(Unit killer)
+    public void onDeath(Unit killer,boolean fromAbility)
     {
         this.setSymbol('X');
         killer.swapPosition(this);

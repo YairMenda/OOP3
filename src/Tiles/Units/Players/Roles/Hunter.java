@@ -27,7 +27,7 @@ public class Hunter extends Player {
         callBack = new MessegeCallBack();
     }
 
-    public void LevelUP()
+    public void levelUP()
     {
         super.levelUP();
         this.arrowsCount += this.getLevel()*10;
@@ -37,19 +37,26 @@ public class Hunter extends Player {
 
     public void activateAbility(List<Enemy> enemies)
     {
+        callBack.onMessageRecieved("Hunter " + this.getName() + " Just activated special ability Shoot!");
         if(this.arrowsCount > 0)
         {
             List<Enemy> enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) <= this.range).toList();
-            Enemy closest = enemies.get(1);
-            for(Enemy e : enemies)
+            if (enemiesInRange.size() == 0)
+                callBack.onMessageRecieved("No enemies in  Shoot range ");
+            else
             {
-                if(this.getP().Distance(e.getP()) < this.getP().Distance(closest.getP()))
-                    closest = e;
+                this.arrowsCount--;
+                Enemy closest = enemies.get(0);
+                for(Enemy e : enemiesInRange)
+                {
+                    if(this.getP().Distance(e.getP()) < this.getP().Distance(closest.getP()))
+                        closest = e;
+                }
+                this.attackWithAbility(closest,this.getAttackPoints());
             }
-            this.attackWithAbility(closest,this.getAttackPoints());
-            this.arrowsCount--;
-            callBack.onMessageRecieved("Hunter " + this.getName() + " Just activated special ability Shoot!");
         }
+        else
+            callBack.onMessageRecieved("You dont have enough Arrows ");
     }
     public void move(Tile t)
     {

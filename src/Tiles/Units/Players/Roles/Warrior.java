@@ -25,7 +25,7 @@ public class Warrior extends Player {
         callBack = new MessegeCallBack();
     }
 
-    public void LevelUP()
+    public void levelUP()
     {
         super.levelUP();
         this.remainingCooldown = 0;
@@ -36,14 +36,18 @@ public class Warrior extends Player {
 
     public void activateAbility(List<Enemy> enemies)
     {
-        if(this.remainingCooldown == 0)
-        {
+        callBack.onMessageRecieved("Warrior " + this.getName() + " Just activated special ability Avengers Shield!");
+        if(this.remainingCooldown == 0) {
             List<Enemy> enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) < 3).toList();
-            Enemy randomEnemy = enemiesInRange.get((new Random()).nextInt(0,enemiesInRange.size()));
-            callBack.onMessageRecieved("Warrior " + this.getName() + " Just activated special ability Avengers Shield!");
-            this.attackWithAbility(randomEnemy,(int)(this.getHealth().getPool()*0.1));
-            this.getHealth().increaseBarPoints(10*this.getDefensePoints());
-            this.remainingCooldown = this.abilityCooldown;
+            if (enemiesInRange.size() == 0)
+                callBack.onMessageRecieved("No enemies in Avengers shield range ");
+            else
+            {
+                this.remainingCooldown = this.abilityCooldown;
+                Enemy randomEnemy = enemiesInRange.get((new Random()).nextInt(0, enemiesInRange.size()));
+                this.attackWithAbility(randomEnemy, (int) (this.getHealth().getPool() * 0.1));
+                this.getHealth().increaseBarPoints(10 * this.getDefensePoints());
+            }
         }
         else
             this.callBack.onMessageRecieved("Still have cooldown remaining to use special ability");

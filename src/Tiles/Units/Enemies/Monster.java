@@ -53,10 +53,11 @@ public class Monster extends Enemy {
     public void setVision(int vision) {
         this.vision = vision;
     }
-    public void onDeath(Unit killer)
+    public void onDeath(Unit killer,boolean fromAbility)
     {
         killer.gainEXP(this.getExpRaise());
-        killer.swapPosition(this);
+        if (!fromAbility)
+            killer.swapPosition(this);
         callBack.onMessageRecieved("Monster " + this.getName() + " died.");
     }
 
