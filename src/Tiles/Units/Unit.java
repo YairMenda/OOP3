@@ -63,7 +63,10 @@ public abstract  class Unit extends Tile {
         {
             u.getHealth().decreasBarPoints(randomAttack - randomDefense);
             callBack.onMessageRecieved(this.getName() + " attacked with " + (randomAttack - randomDefense) + " points");
+            u.info();
         }
+        else
+            callBack.onMessageRecieved("Attack was too low to break" + u.getName() + "defense");
         if(u.isDead())
             u.onDeath(this);
     }

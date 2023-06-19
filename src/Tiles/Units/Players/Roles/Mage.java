@@ -54,6 +54,8 @@ public class Mage extends Player {
             this.mana.decreasBarPoints(this.abilityCost);
 
         }
+        else
+            this.callBack.onMessageRecieved("Not enough mana to use special ability");
     }
 
     public void move(Tile t)

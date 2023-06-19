@@ -44,9 +44,13 @@ public abstract class Player extends Unit {
             e.getHealth().decreasBarPoints(attackPoints - e.getDefensePoints());
             callBack.onMessageRecieved(this.getName() + " attacked " + e.getName() +
                     " with " + (attackPoints - e.getDefensePoints()) + " attack points!");
+            e.info();
             if (e.isDead())
                 e.onDeath(this);
         }
+        else
+            callBack.onMessageRecieved("Attack was too low to break" + e.getName() + "defense");
+
     }
     public void gainEXP(int exp)
     {
@@ -64,6 +68,7 @@ public abstract class Player extends Unit {
                 exp = 0;
             }
         }
+        this.info();
     }
 
     public abstract void move(Tile t);
