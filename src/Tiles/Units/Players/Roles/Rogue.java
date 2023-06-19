@@ -42,6 +42,9 @@ public class Rogue extends Player {
             }
             this.energy.decreasBarPoints(this.abilityCost);
         }
+        else
+            this.callBack.onMessageRecieved("Not enough energy to use special ability");
+
     }
 
     public void move(Tile t)

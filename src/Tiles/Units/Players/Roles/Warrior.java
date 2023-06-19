@@ -45,6 +45,9 @@ public class Warrior extends Player {
             this.getHealth().increaseBarPoints(10*this.getDefensePoints());
             this.remainingCooldown = this.abilityCooldown;
         }
+        else
+            this.callBack.onMessageRecieved("Still have cooldown remaining to use special ability");
+
     }
     public void move(Tile t)
     {
