@@ -159,22 +159,28 @@ public class Level {
     }
     public void betweenGameTicks()
     {
+        List<Monster> aliveMonsters = new LinkedList<Monster>();
+        List<Trap> aliveTraps = new LinkedList<Trap>();
         for (Monster m : this.monsters)
         {
             if (m.isDead()) {
                 this.board.addTile(new Empty(m.getP().getX(), m.getP().getY()));
-                this.monsters.remove(m);
             }
+            else
+                aliveMonsters.add(m);
 
         }
         for (Trap t : this.traps)
         {
             if (t.isDead()) {
                 this.board.addTile(new Empty(t.getP().getX(), t.getP().getY()));
-                this.traps.remove(t);
             }
+            else
+                aliveTraps.add(t);
         }
 
+        this.traps = aliveTraps;
+        this.monsters = aliveMonsters;
     }
 
 
