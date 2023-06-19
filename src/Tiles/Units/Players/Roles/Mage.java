@@ -6,6 +6,7 @@ import Tiles.Units.Bars.Bar;
 import Tiles.Units.Enemies.Enemy;
 import Tiles.Units.Players.Player;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -44,19 +45,19 @@ public class Mage extends Player {
         callBack.onMessageRecieved("Mage " + this.getName() + " Just activated special ability Blizzard!");
         if(this.mana.getCurrent() >= this.abilityCost)
         {
-            List<Enemy> enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) <= this.abilityRange).toList();
+            List<Enemy> enemiesInRange = new LinkedList<Enemy>();
+            enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) <= this.abilityRange).toList();
             if (enemiesInRange.size() == 0)
                 callBack.onMessageRecieved("No enemies in Blizzard Range");
             else
             {
                 this.mana.decreasBarPoints(this.abilityCost);
                 for (int i = 1; i <= this.hitsCount && enemiesInRange.size() > 0; i++) {
-                    Enemy randomEnemy = enemiesInRange.get((new Random()).nextInt(0, enemiesInRange.size()));
+                    int index = (new Random()).nextInt(0, enemiesInRange.size());
+                    Enemy randomEnemy = enemiesInRange.get(index);
                     if (!randomEnemy.isDead()) {
                         this.attackWithAbility(randomEnemy, this.spellPower);
                     }
-                    else
-                        enemiesInRange.remove(randomEnemy);
                 }
             }
         }
