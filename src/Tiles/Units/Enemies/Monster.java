@@ -26,18 +26,6 @@ public class Monster extends Enemy {
         this.combat(p);
     }
 
-/*
-    public void visit (Trap t)
-    {
-
-    }
-
-    public void  visit(Monster m)
-    {
-        this.swapPosition(m);
-    }
-*/
-
     public void visit(Enemy e)
     {
         /*e.visit(this);*/

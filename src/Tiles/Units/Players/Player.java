@@ -57,7 +57,7 @@ public abstract class Player extends Unit {
         callBack.onMessageRecieved("Player " + this.getName() + " just Gained " + exp + " EXP");
         while(exp > 0)
         {
-            if(this.getExp() + exp > this.level * 50)
+            if(this.getExp() + exp >= this.level * 50)
             {
                 exp = exp - (this.level * 50 - this.getExp());
                 levelUP();

@@ -9,6 +9,7 @@ import Tiles.Units.Players.Player;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Mage extends Player {
 
@@ -46,7 +47,7 @@ public class Mage extends Player {
         if(this.mana.getCurrent() >= this.abilityCost)
         {
             List<Enemy> enemiesInRange = new LinkedList<Enemy>();
-            enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) <= this.abilityRange).toList();
+            enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) <= this.abilityRange).collect(Collectors.toList());
             if (enemiesInRange.size() == 0)
                 callBack.onMessageRecieved("No enemies in Blizzard Range");
             else
@@ -58,6 +59,8 @@ public class Mage extends Player {
                     if (!randomEnemy.isDead()) {
                         this.attackWithAbility(randomEnemy, this.spellPower);
                     }
+                    else
+                        enemiesInRange.remove(index);
                 }
             }
         }

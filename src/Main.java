@@ -10,7 +10,18 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        GameFlow game = new GameFlow();
+        GameFlow game = new GameFlow(args[0]);
         game.ActivateGame();
+
+/*        UnitTest u = new UnitTest();
+        u.initTest();
+
+        u.gainEXP();
+        u.activateAbility();
+        u.combat();
+        u.isDead();
+        u.interactEmpty();
+        u.interactWall();
+        u.onDeath();*/
     }
 }
