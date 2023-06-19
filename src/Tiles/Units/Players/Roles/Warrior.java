@@ -40,10 +40,10 @@ public class Warrior extends Player {
         {
             List<Enemy> enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) < 3).toList();
             Enemy randomEnemy = enemiesInRange.get((new Random()).nextInt(0,enemiesInRange.size()));
+            callBack.onMessageRecieved("Warrior " + this.getName() + " Just activated special ability Avengers Shield!");
             this.attackWithAbility(randomEnemy,(int)(this.getHealth().getPool()*0.1));
             this.getHealth().increaseBarPoints(10*this.getDefensePoints());
             this.remainingCooldown = this.abilityCooldown;
-            callBack.onMessageRecieved("Warrior " + this.getName() + " Just activated special ability Avengers Shield!");
         }
     }
     public void move(Tile t)

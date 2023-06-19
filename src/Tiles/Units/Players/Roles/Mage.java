@@ -44,13 +44,15 @@ public class Mage extends Player {
         if(this.mana.getCurrent() >= this.abilityCost)
         {
             List<Enemy> enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) <= this.abilityRange).toList();
-            for(int i = 1 ; i <= this.hitsCount ; i++)
-            {
-                Enemy randomEnemy = enemiesInRange.get((new Random()).nextInt(0,enemiesInRange.size()));
-                this.attackWithAbility(randomEnemy,this.spellPower);
+            callBack.onMessageRecieved("Mage " + this.getName() + " Just activated special ability Blizzard!");
+            for(int i = 1 ; i <= this.hitsCount ; i++) {
+                Enemy randomEnemy = enemiesInRange.get((new Random()).nextInt(0, enemiesInRange.size()));
+                if (!randomEnemy.isDead()) {
+                    this.attackWithAbility(randomEnemy, this.spellPower);
+                }
             }
             this.mana.decreasBarPoints(this.abilityCost);
-            callBack.onMessageRecieved("Mage " + this.getName() + " Just activated special ability Blizzard!");
+
         }
     }
 

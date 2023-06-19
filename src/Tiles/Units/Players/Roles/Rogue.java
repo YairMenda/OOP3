@@ -34,12 +34,13 @@ public class Rogue extends Player {
         if(this.energy.getCurrent() >= this.abilityCost)
         {
             List<Enemy> enemiesInRange = enemies.stream().filter(e -> this.getP().Distance(e.getP()) < 2).toList();
+            callBack.onMessageRecieved("Rogue " + this.getName() + " Just activated special ability Fan Of Knives!");
+
             for(Enemy e : enemiesInRange)
             {
                 this.attackWithAbility(e,this.getAttackPoints());
             }
             this.energy.decreasBarPoints(this.abilityCost);
-            callBack.onMessageRecieved("Rogue " + this.getName() + " Just activated special ability Fan Of Knives!");
         }
     }
 

@@ -37,12 +37,12 @@ public class GameFlow {
                 System.out.println("Your turn - ");
                 String userAction = scanner.nextLine();
                 currentLevel.gameTick(userAction);
+
             }
 
             levelNumber++;
         }
     }
-
 
 }
 
