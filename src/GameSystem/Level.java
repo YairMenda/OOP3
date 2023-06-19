@@ -137,16 +137,16 @@ public class Level {
 
     public void unitMove(Unit u, String action)
     {
-        if (action.equals("w") & u.getP().getY() != 0) {
+        if (action.equals("w")) {
             u.move(this.board.getTileInPosition(new Position(u.getP().getX(),u.getP().getY() - 1 )));
         }
-        if (action.equals("s") & u.getP().getY() != this.board.getBoardCurrentY()) {
+        if (action.equals("s")) {
             u.move(this.board.getTileInPosition(new Position(u.getP().getX(),u.getP().getY() + 1 )));
         }
-        if (action.equals("a") & u.getP().getX() != 0)
+        if (action.equals("a"))
             u.move(this.board.getTileInPosition(new Position(u.getP().getX() - 1 ,u.getP().getY() )));
 
-        if (action.equals("d") & u.getP().getX() != this.board.getBoard()[0].length)
+        if (action.equals("d"))
             u.move(this.board.getTileInPosition(new Position(u.getP().getX() + 1,u.getP().getY())));
     }
     public boolean gameOver()

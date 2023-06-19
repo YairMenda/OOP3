@@ -75,6 +75,6 @@ public class Hunter extends Player {
     }
     public void info()
     {
-        this.callBack.onMessageRecieved("Mage " + this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Hunter " + this.getName() + " Stats : " + this.description());
     }
 }
