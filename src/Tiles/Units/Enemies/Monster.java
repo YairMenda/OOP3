@@ -92,6 +92,6 @@ public class Monster extends Enemy {
     }
     public void info()
     {
-        this.callBack.onMessageRecieved("Monster " + this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Monster " + this.getName() + "\n Stats : " + this.description() + "\n");
     }
 }

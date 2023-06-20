@@ -14,6 +14,9 @@ public class GameFlow {
     //private String directoryPath = "\\C:\\OOP3\\OOP3\\levels_dir\\";
     public GameFlow(String directoryPath)
     {
+        System.out.println();
+        System.out.println("Game Keys - w = up  - d = right  - s = down - a = left - e = ability");
+        System.out.println();
         this.currentLevel = new Level();
         System.out.println(currentLevel.showPlayers());
         this.directoryPath = directoryPath;
@@ -21,6 +24,7 @@ public class GameFlow {
         System.out.println("Choose your player from the list");
         int playerChosen = scanner.nextInt();
         currentLevel.choosePlayer(playerChosen);
+
     }
 
     public void ActivateGame() {
@@ -44,7 +48,7 @@ public class GameFlow {
             levelNumber++;
         }
 
-        System.out.println("GAME OVER!!!");
+        System.out.println("\n GAME OVER!!!");
     }
 
 }

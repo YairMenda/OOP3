@@ -75,6 +75,6 @@ public class Trap extends Enemy {
     }
     public void info()
     {
-        this.callBack.onMessageRecieved("Trap " + this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Trap " + this.getName() + "\n Stats : " + this.description() + "\n");
     }
 }

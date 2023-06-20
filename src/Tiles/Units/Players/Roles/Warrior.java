@@ -65,6 +65,6 @@ public class Warrior extends Player {
     }
     public void info()
     {
-        this.callBack.onMessageRecieved("Warrior " +this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Warrior " +this.getName() + "\n Stats : " + this.description() + "\n");
     }
 }

@@ -36,6 +36,8 @@ public class Level {
     public void choosePlayer(int playerChosen)
     {
         this.player = factory.getPlayer(playerChosen);
+        System.out.println("You choose - " + player.getName());
+        System.out.println();
     }
     public boolean hasLevel(String filePath) {
 
@@ -195,7 +197,7 @@ public class Level {
         String s = "";
         int index = 0;
         for (Player p : factory.listPlayers()) {
-            s += index + p.description() + "\n";
+            s += "( " + index + " ) "+ "  Player info - "+ p.description() + "\n";
             index++;
         }
 

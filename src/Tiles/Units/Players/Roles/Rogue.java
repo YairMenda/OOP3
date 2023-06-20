@@ -60,6 +60,6 @@ public class Rogue extends Player {
     }
     public void info()
     {
-        this.callBack.onMessageRecieved("Rogue " +this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Rogue " +this.getName() + "\n Stats : " + this.description() + "\n");
     }
 }

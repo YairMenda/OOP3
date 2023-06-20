@@ -79,6 +79,6 @@ public class Mage extends Player {
     }
     public void info()
     {
-        this.callBack.onMessageRecieved("Mage " + this.getName() + " Stats : " + this.description());
+        this.callBack.onMessageRecieved("Mage " + this.getName() + "\n Stats : " + this.description() + "\n");
     }
 }
